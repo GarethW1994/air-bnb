@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Flat from './components/flat-component/flat';
+import Marker from './components/marker/marker';
+
+import GoogleMapReact from 'google-map-react';
 
 const flat =  {
   "id": 145,
@@ -34,7 +37,13 @@ class App extends Component {
       });
   }
 
+
   render() {
+    const center = {
+      lat: 48.888839,
+      lng: 2.339208
+    }
+
     return (
      <div className="app">
       <div className="main">
@@ -45,7 +54,16 @@ class App extends Component {
           })}
         </div>
       </div>
-      <div className="map"></div>
+      <div className="map">
+      <GoogleMapReact
+      center={center}
+      zoom={15}
+    >
+    {this.state.flats.map((flat) => {
+      return <Marker lat={flat.lat} lng={flat.lng} text={flat.price} />
+    })}
+    </GoogleMapReact>
+      </div>
      </div>
     )
   }
